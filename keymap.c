@@ -18,7 +18,7 @@
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
-    _QWERTY,
+    _QWERTY = 0,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BACKSLASH,
     KC_CAPS_LOCK,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
     KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                KC_LGUI,KC_LALT,KC_LCTL, KC_SPC, LT(_LOWER,KC_ENT),      LT(_LOWER,KC_SPC),  KC_ENT, KC_RCTL, KC_RALT, KC_RGUI
+                KC_LGUI,KC_LALT,KC_LCTL, KC_SPC, LT(_LOWER,KC_ENT),      LT(_RAISE,KC_SPC), TO(_ADJUST), KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /* LOWER
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ASTR,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_LT,                            KC_GT,    KC_HASH,  KC_TILD,  KC_MINS,  KC_UNDS,  _______,
     _______,  KC_LPRN,  KC_RPRN,  KC_LBRC,  KC_RBRC,  KC_EXLM,                          KC_QUES,  KC_LCBR,  KC_RCBR,  KC_DQUO,  KC_SLSH,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,      _______,  KC_PLUS,  KC_EQL,   KC_BSLS,  KC_SLSH,  _______,  _______,
-                        _______, _______, _______, _______, MO(_RAISE),            MO(_RAISE), _______, _______, _______, _______
+                        _______, _______, _______, _______, XXXXXXX,           XXXXXXX, _______, _______, _______, _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -381,36 +381,7 @@ bool oled_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case KC_ADJUST:
-            if (record->event.pressed) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
-            }
-            return false;
+       
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -545,7 +516,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef ENCODER_ENABLE
+/* #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
@@ -580,4 +551,59 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
+#endif */
+
+
+#ifdef ENCODER_ENABLE
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_MS_U);
+        } else {
+            tap_code(KC_MS_D);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_MS_L);
+        } else {
+            tap_code(KC_MS_R);
+        }
+    }
+    return true;
+}
+
 #endif
+
+
+
+/*
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) { //LEEDS XNO0
+
+
+    for (uint8_t i = led_min; i < led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case _QWERTY:
+
+                rgb_matrix_set_color(i, RGB_BLUE);
+                if (host_keyboard_led_state().caps_lock) {
+                    rgb_matrix_set_color(9, RGB_MAGENTA); 
+                } else {
+                    rgb_matrix_set_color(9, RGB_BLUE);
+                }
+                break;            
+            case _LOWER:
+                rgb_matrix_set_color(i, RGB_YELLOW);
+                break;
+            case _RAISE:
+                rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case _ADJUST:
+                rgb_matrix_set_color(i, RGB_MAGENTA);
+                break;
+
+        }
+    }
+    return false;
+}
+*/
