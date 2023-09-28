@@ -20,6 +20,9 @@
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
 
 
+// home row mods 
+
+// #define TAPPING_TERM 300
 
 
 #define RGBLIGHT_SLEEP
