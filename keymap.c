@@ -25,7 +25,8 @@ enum sofle_layers {
     _RAISE,
     _ADJUST,
     _GAME,
-    _SHIFTLAYER
+    _SHIFTLAYER,
+    _MINECRAFT
 };
 
 // clang-format off
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                       KC_Y,    KC_U,    KC_I,     KC_O,   KC_P,       ES_BSLS,
     KC_CAPS_LOCK,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                       KC_H,    KC_J,    KC_K,     KC_L,   ES_SCLN,    ES_QUOT,
     KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,     KC_BTN1,                KC_BTN2,  KC_N,    KC_M,    KC_COMM,  KC_DOT, ES_SLSH,    LT(_SHIFTLAYER, KC_RSFT),
-                KC_LGUI,    KC_LCTL,    KC_LCTL,    KC_SPC, LT(_LOWER,KC_ENT),   LT(_RAISE,KC_SPC), KC_ENTER, KC_RCTL, KC_RALT, C(KC_S)
+                KC_LGUI,    KC_RCTL,    KC_LCTL,    KC_SPC, LT(_LOWER,KC_ENT),   LT(_RAISE,KC_SPC), KC_ENTER, KC_RCTL, KC_RALT, C(KC_S)
 ),
 
 /* LOWER
@@ -95,10 +96,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LOWER con modificaciones 
 [_LOWER] = LAYOUT(
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-    ES_EURO,  ES_DLR,   ES_PERC,  ES_LCBR,  ES_RCBR,  ES_LABK,                          ES_LABK,  ES_MINS,  ES_UNDS,  ES_HASH,  ES_TILD,  XXXXXXX,
+    ES_EURO,  ES_DLR,   ES_PERC,  ES_LCBR,  ES_RCBR,  ES_LABK,                          ES_RABK,  ES_MINS,  ES_UNDS,  ES_HASH,  ES_TILD,  XXXXXXX,
     XXXXXXX,  ES_ASTR,  ES_AT,  ES_LPRN,  ES_RPRN,  ES_EXLM,                          ES_QUES,  ES_EQL,   ES_PLUS,  ES_DQUO,  ES_SLSH,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  ES_NOT,   ES_LBRC,  ES_RBRC,  ES_IEXL,  XXXXXXX,      XXXXXXX,  ES_IQUE,  ES_CIRC,  ES_AMPR,  ES_CCED,  ES_NTIL,  XXXXXXX,
-                        XXXXXXX, _______, _______, _______, _______,           _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX,  XXXXXXX,  ES_NOT,   ES_LBRC,  ES_RBRC,  ES_IEXL,  KC_F13,      XXXXXXX,  ES_IQUE,  ES_CIRC,  ES_AMPR,  ES_CCED,  ES_NTIL,  XXXXXXX,
+                        KC_LALT, _______, _______, _______, _______,           _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* SHIFTLAYER
@@ -117,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_SHIFTLAYER] = LAYOUT(
-    _______, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,                           KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DELETE,
-    XXXXXXX, KC_PEQL, KC_1, KC_2, KC_3, KC_PSLS,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ES_MORD, ES_PIPE,
+    _______, KC_EXLM, ES_AT, ES_HASH, KC_DLR, KC_PERC,                           ES_CIRC, ES_AMPR, ES_ASTR, ES_LPRN, ES_RPRN, KC_DELETE,
+    XXXXXXX, KC_PEQL, KC_1, KC_2, KC_3, KC_PSLS,                           XXXXXXX, XXXXXXX, XXXXXXX, ES_GRV, ES_MORD, ES_PIPE,
     XXXXXXX, KC_PCMM, KC_4, KC_5, KC_6, KC_PAST,                           XXXXXXX, XXXXXXX, XXXXXXX, KC_QUOT, ES_COLN, ES_DQUO,
     XXXXXXX, KC_PDOT, KC_7, KC_8, KC_9, KC_PMNS,  TO(_ADJUST),       XXXXXXX,  XXXXXXX, XXXXXXX, ES_LABK, ES_RABK, ES_QUES, XXXXXXX,
                     XXXXXXX, KC_0, KC_PPLS, KC_PENT, _______,             _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -162,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT(
     QK_BOOT, RGB_M_P , RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN,                        RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, XXXXXXX, XXXXXXX,
     XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(_GAME),
-    XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, RGB_MOD,                           RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, RGB_MOD,                           RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(_MINECRAFT),
     TO(_QWERTY), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
@@ -173,6 +174,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS_LOCK,   KC_A,           KC_S,           KC_D,    KC_F,      KC_G,                                       KC_H, KC_J, KC_K, KC_L, KC_SCLN,   KC_QUOT,
     KC_LSFT,        KC_Z,           KC_X,           KC_C,    KC_V,    KC_B,     KC_BTN1,                KC_BTN2,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
                                     KC_LGUI,        KC_LALT, KC_LCTL, KC_SPC, KC_ENTER,        LT(_RAISE,KC_SPC), KC_ENTER, KC_RCTL, KC_RALT, C(KC_S)
+),
+
+[_MINECRAFT] = LAYOUT(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_ACCEL2, XXXXXXX,
+    XXXXXXX, XXXXXXX, KC_H, XXXXXXX, XXXXXXX, KC_T,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, KC_A, KC_S, XXXXXXX, KC_F, KC_G,                           XXXXXXX, KC_F3, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    TO(_QWERTY), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_B, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
 
 
@@ -766,18 +775,52 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_MS_U);
-        } else {
-            tap_code(KC_MS_D);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_MS_L);
-        } else {
-            tap_code(KC_MS_R);
-        }
+    switch (get_highest_layer(layer_state)){
+        case _QWERTY:
+            if (index == 0) {
+                if (clockwise) {
+                    tap_code(KC_MS_U);
+                } else {
+                    tap_code(KC_MS_D);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                    tap_code(KC_MS_L);
+                } else {
+                    tap_code(KC_MS_R);
+                }
+            }
+            break;
+        case _RAISE:
+            if (index == 0) {
+                if (clockwise) {
+                        tap_code(KC_WH_U);
+                } else {
+                        tap_code(KC_WH_D);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                        tap_code(KC_WH_R);
+                } else {
+                        tap_code(KC_WH_L);
+                }
+            }
+            break;
+        case _LOWER:
+            if (index == 0) {
+                if (clockwise) {
+                        tap_code(KC_UP);
+                } else {
+                        tap_code(KC_DOWN);
+                }
+            } else if (index == 1) {
+                if (clockwise) {
+                        tap_code(KC_RIGHT);
+                } else {
+                        tap_code(KC_LEFT);
+                }
+            }
+            break;
     }
     return true;
 }

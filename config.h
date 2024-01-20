@@ -32,6 +32,8 @@
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
+// #define MOUSEKEY_INTERVAL 40
+#define MOUSEKEY_WHEEL_DELTA 1
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGBLED_NUM 35    // Number of LEDs
