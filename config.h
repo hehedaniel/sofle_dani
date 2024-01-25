@@ -22,7 +22,7 @@
 
 // home row mods 
 
-// #define TAPPING_TERM 300
+#define TAPPING_TERM 300
 
 
 #define RGBLIGHT_SLEEP
