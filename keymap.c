@@ -28,10 +28,10 @@ enum custom_keycodes {
 };
 
 //Left-hand home row mods
-#define HOME_A LGUI_T(KC_A)
-#define HOME_S LALT_T(KC_S)
-#define HOME_D LSFT_T(KC_D)
-#define HOME_F LCTL_T(KC_F)
+// #define HOME_A LGUI_T(KC_A)
+// #define HOME_S LALT_T(KC_S)
+// #define HOME_D LSFT_T(KC_D)
+// #define HOME_F LCTL_T(KC_F)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -50,33 +50,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 
-// [_QWERTY] = LAYOUT(
-//     KC_ESC,         KC_1,   KC_2,   KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
-//     KC_TAB,         KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BACKSLASH,
-//     KC_CAPS_LOCK,   HOME_A, HOME_S, HOME_D, HOME_F, KC_G,                    KC_H, KC_J, KC_K, KC_L, KC_SCLN,   KC_QUOT,
-//     KC_LSFT,        KC_Z,           KC_X,           KC_C,    KC_V,    KC_B,     KC_BTN1,                KC_BTN2,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-//                                     KC_LGUI,        KC_LALT, KC_LCTL, KC_SPC, LT(_LOWER,KC_ENT),        LT(_RAISE,KC_SPC), KC_ENTER, KC_RCTL, KC_RALT, KC_RGUI
-// ),
-
 [_QWERTY] = LAYOUT(
     _______,    _______,    _______,    _______,    _______,    _______,                                            _______,    _______,    _______,    _______,    _______,    _______,
     KC_ESC,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,                                               KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       ES_BSLS,
-    KC_TAB,     HOME_A,     HOME_S,     HOME_D,     HOME_F,     KC_G,                                               KC_H,       KC_J,       KC_K,       KC_L,       ES_SCLN,    ES_QUOT,
+    KC_TAB,     KC_A,       KC_S,       KC_D,       KC_F,       KC_G,                                               KC_H,       KC_J,       KC_K,       KC_L,       ES_SCLN,    ES_QUOT,
     KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,     KC_CAPS_LOCK,                C(KC_S),     KC_N,       KC_M,       KC_COMM,    KC_DOT,     ES_SLSH,    LT(_NUMBERS, _______),
-                            _______,    _______,    KC_RCTL,    KC_SPC,  LT(_LOWER,KC_LGUI),   LT(_RAISE,KC_ENTER), KC_BSPC,  KC_ENTER,    _______,    _______
+                            _______,    _______,    KC_LCTL,    KC_SPC,  LT(_LOWER,KC_LGUI),   LT(_RAISE,KC_ENTER), KC_BSPC,  KC_ENTER,    _______,    _______
 ),
 
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  €   |   $  |   %  |   {  |   }  |   <  |                    |   >  |   -  |   _  |  #   |   |  |      |
+ * |  €   |   $  |   %  |   {  |   }  |   <  |                    |   >  |   -  |   _  |  #   |   |  |  ^   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  *   |  @   |   [  |  ]   |  !   |-------.    ,-------|  ?   |   =  |  +   |  "   |  /   |      |
- * |------+------+------+------+------+------|  F13  |    |CLICK2 |------+------+------+------+------+------|
- * |      |      |  ¬   |   [  |  ]   |  ¡   |-------|    |-------|   ¿  |   ^  |  &   |  ç   |  ñ   |      |
+ * |  `   |  *   |  @   |   [  |  ]   |  !   |-------.    ,-------|  ?   |   =  |  +   |  :   |  /   |  ç   |
+ * |------+------+------+------+------+------|  F13  |    |       |------+------+------+------+------+------|
+ * |  º   |      |  ¬   |   [  |  ]   |  ¡   |-------|    |-------|   ¿  |   '  |     |  &   |  ñ   |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            |      |      | ctl  | alt  | /Raise  /       \numbe \  | del  |      |      |      |
+ *            |      |      | ctl  | alt  | /Raise  /       \      \  | del  |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -84,21 +76,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LOWER con modificaciones
 [_LOWER] = LAYOUT(
     _______,  _______,  _______,    _______,  _______,  _______,                          _______,  _______,  _______,  _______,  _______,  _______,
-    ES_EURO,  ES_DLR,   ES_PERC,    ES_LCBR,  ES_RCBR,  ES_LABK,                          ES_RABK,  ES_MINS,  ES_UNDS,  ES_HASH,  ES_PIPE,  _______,
-    _______,  ES_ASTR,  ES_AT,      ES_LPRN,  ES_RPRN,  ES_EXLM,                          ES_QUES,  ES_EQL,   ES_PLUS,  ES_DQUO,  ES_SLSH,  _______,
-    _______,  _______,  ES_NOT,     ES_LBRC,  ES_RBRC,  ES_IEXL,  KC_F13,      _______,   ES_IQUE,  ES_CIRC,  ES_AMPR,  ES_CCED,  ES_NTIL,  _______,
-                        _______,    _______,  KC_RCTL,  KC_LALT,  _______,     TO(_NUMBERS),   KC_DELETE,  _______,  _______,  _______
+    ES_EURO,  ES_DLR,   ES_PERC,    ES_LCBR,  ES_RCBR,  ES_LABK,                          ES_RABK,  ES_MINS,  ES_UNDS,  ES_HASH,  ES_PIPE,  ES_CIRC,
+    ES_GRV,   ES_ASTR,  ES_AT,      ES_LPRN,  ES_RPRN,  ES_EXLM,                          ES_QUES,  ES_EQL,   ES_PLUS,  ES_COLN,  ES_SLSH,  ES_CCED,
+    ES_MORD,  _______,  ES_NOT,     ES_LBRC,  ES_RBRC,  ES_IEXL,  KC_F13,      _______,   ES_IQUE,  ES_QUOT,  ES_DQUO,  ES_CCED,  ES_NTIL,  _______,
+                        _______,    _______,  KC_RCTL,  KC_LALT,  _______,     _______,   KC_DELETE,  _______,  _______,  _______
 ),
 
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      | BHOM | BBAC | BFOR |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | VOLU |      |      |  UP  |      |      |                    |   !  |  `   |  º   |      |      |   ~  |
+ * | VOLU |      |      |  UP  |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | VOLD |      | LEFT | DOWN | RIGHT|      |-------.    ,-------|      |  ´   |   :  |      |      |  "   |
+ * | VOLD |      | LEFT | DOWN | RIGHT|      |-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * | SLEP |      |      |      |      |      |-------|    |-------|      |      |      |   ?  |      |shift |
+ * | SLEP |      |      |      |      |      |-------|    |-------|      |      |      |      |      |shift |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |       | /       /       \      \  |      |      |      |      |
  *            |      |      |      |       |/       /         \      \ |      |      |      |      |
@@ -106,19 +98,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
     _______, _______, _______, _______, _______,  _______,                           _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, KC_UP,   _______,  _______,                           KC_EXLM,  ES_GRV,  ES_MORD, _______, _______, ES_TILD,
-    _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______,                           _______,    KC_QUOT, ES_COLN, _______, _______, ES_DQUO,
-    _______, _______, _______, _______, _______,  _______,  TO(_ADJUST),   _______,  _______, _______, _______, ES_QUES, _______, KC_RSFT,
-                        _______, _______, _______, _______, _______,        _______, _______, TO(_QWERTY), _______, _______
+    _______, _______, _______, KC_UP,   _______,  _______,                           _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______,                           _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,  _______,  TO(_ADJUST),   TO(_QWERTY),  _______, _______, _______, _______, _______, KC_RSFT,
+                        _______, _______, KC_RCTL, _______, _______,        _______, _______, _______, _______, _______
 ),
 
 /* NUMBERS
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   #  |   1  |   2  |   3  |  /   |                    |   F1 |   F2 |   F3 | F4   |      |      |
+ * |      |   #  |   1  |   2  |   3  |  /   |                    |   F1 |   F2 |   F3 | F4   |      |  ~   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   $  |   4  |   5  |   6  |  *   |-------.    ,-------|   F5 |   F6 |   F7 | F8   |      |      |
+ * |      |   $  |   4  |   5  |   6  |  *   |-------.    ,-------|   F5 |   F6 |   F7 | F8   |      |  "   |
  * |------+------+------+------+------+------| ADJUST|    |       |------+------+------+------+------+------|
  * |      |   %  |   7  |   8  |   9  |  -   |-------|    |-------|   F9 |  F10 |  F11 | F12  |      | sft  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -129,10 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NUMBERS] = LAYOUT(
     _______, _______, _______,  _______,    _______, _______,                          _______, _______, _______, _______, _______, _______,
-    _______, ES_HASH, KC_1,     KC_2,       KC_3,   KC_PSLS,                           KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______,
-    _______, KC_DLR,  KC_4,     KC_5,       KC_6,   KC_PAST,                           KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______,
-    _______, KC_PERC, KC_7,     KC_8,       KC_9,   KC_PMNS,  TO(_ADJUST),       _______,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_RSFT,
-                        _______,  KC_0, KC_PPLS,  KC_PENT,  KC_DELETE,             _______, _______, KC_PSCR, _______, _______
+    _______, KC_0,    KC_1,     KC_2,       KC_3,    ES_SLSH,                           KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, ES_TILD,
+    _______, ES_DLR,  KC_4,     KC_5,       KC_6,    ES_ASTR,                           KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, ES_DQUO,
+    _______, ES_PERC, KC_7,     KC_8,       KC_9,    ES_MINS,  TO(_ADJUST),       TO(_QWERTY),  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_RSFT,
+                        _______,  _______, KC_PPLS,  KC_PENT,  KC_DELETE,             _______, _______, KC_PSCR, _______, _______
 ),
 
 /* RAISE
