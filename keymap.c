@@ -2,7 +2,9 @@
 #include "keymap_spanish.h"
 
 enum sofle_layers {
-    _QWERTY = 0,
+    _QWERTY= 0,
+    _DVORAK,
+    _DVORAKCMD,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -24,7 +26,9 @@ enum custom_keycodes {
     KC_LEND,
     KC_DLINE,
     KC_BSPC_DEL,
-    KC_LAYER
+    KC_LAYER,
+    KC_DVORAK,
+    KC_DVORAKCMD
 };
 
 //Left-hand home row mods
@@ -58,6 +62,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             _______,    _______,    KC_LCTL,    KC_SPC,  LT(_LOWER,KC_LGUI),   LT(_RAISE,KC_ENTER), KC_BSPC,  KC_ENTER,    _______,    _______
 ),
 
+/*
+ * DVORAK
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |  ESC |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bspc |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | TAB  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  \   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | CAPS |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LGUI | LAlt | LCTR | ESPA | /Enter  /       \Space \  |Enter | RCTR | RAlt | RGUI |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `----------------------------------'           '------''---------------------------'
+ */
+
+[_DVORAK] = LAYOUT(
+    _______,    _______,    _______,    _______,    _______,    _______,                                            _______,    _______,    _______,    _______,    _______,    _______,
+    KC_ESC,     ES_QUOT,    KC_COMM,    KC_DOT,     KC_P,       KC_Y,                                               KC_F,       KC_G,       KC_C,       KC_R,       KC_L,       ES_BSLS,
+    KC_TAB,     KC_A,       KC_O,       KC_E,       KC_U,       KC_I,                                               KC_D,       KC_H,       KC_T,       KC_N,       KC_S,       ES_SLSH,
+    KC_LSFT,    ES_SCLN,    KC_Q,       KC_J,       KC_K,       KC_X,     KC_CAPS_LOCK,                C(KC_S),     KC_B,       KC_M,       KC_W,       KC_V,       KC_Z,       LT(_NUMBERS, _______),
+                            _______,    _______,    KC_LCTL,    LT(_DVORAKCMD,KC_SPC),  LT(_LOWER,KC_LGUI),   LT(_RAISE,KC_ENTER), KC_BSPC,  KC_ENTER,    _______,    _______
+),
+
+[_DVORAKCMD] = LAYOUT(
+    _______,    _______,    _______,    _______,    _______,    _______,                                            _______,    _______,    _______,    _______,    _______,    _______,
+    _______,    _______,    _______,    C(KC_Z),    C(KC_Y),    _______,                                               _______,       _______,       _______,       _______,       _______,       _______,
+    _______,    C(KC_C),    C(KC_S),    C(KC_X),    C(KC_V),    _______,                                               _______,       _______,       _______,       _______,       _______,       _______,
+    _______,    _______,    _______,    _______,    _______,    _______,  KC_CAPS_LOCK,                C(KC_S),     _______,       _______,       _______,       _______,       _______,       LT(_NUMBERS, _______),
+                            _______,    _______,    KC_LCTL,    _______,  LT(_LOWER,KC_LGUI),   LT(_RAISE,KC_ENTER), KC_BSPC,  KC_ENTER,    _______,    _______
+),
+
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -66,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |  `   |  *   |  @   |   [  |  ]   |  !   |-------.    ,-------|  ?   |   =  |  +   |  :   |  /   |  ç   |
  * |------+------+------+------+------+------|  F13  |    |       |------+------+------+------+------+------|
- * |  º   |      |  ¬   |   [  |  ]   |  ¡   |-------|    |-------|   ¿  |   '  |     |  &   |  ñ   |      |
+ * |  º   |      |  ¬   |   [  |  ]   |  ¡   |-------|    |-------|   ¿  |   '  |  "   |  &   |  ñ   |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      | ctl  | alt  | /Raise  /       \      \  | del  |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -78,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,    _______,  _______,  _______,                          _______,  _______,  _______,  _______,  _______,  _______,
     ES_EURO,  ES_DLR,   ES_PERC,    ES_LCBR,  ES_RCBR,  ES_LABK,                          ES_RABK,  ES_MINS,  ES_UNDS,  ES_HASH,  ES_PIPE,  ES_CIRC,
     ES_GRV,   ES_ASTR,  ES_AT,      ES_LPRN,  ES_RPRN,  ES_EXLM,                          ES_QUES,  ES_EQL,   ES_PLUS,  ES_COLN,  ES_SLSH,  ES_CCED,
-    ES_MORD,  _______,  ES_NOT,     ES_LBRC,  ES_RBRC,  ES_IEXL,  KC_F13,      _______,   ES_IQUE,  ES_QUOT,  ES_DQUO,  ES_CCED,  ES_NTIL,  _______,
+    ES_MORD,  _______,  ES_NOT,     ES_LBRC,  ES_RBRC,  ES_IEXL,  KC_F13,      _______,   ES_IQUE,  ES_QUOT,  ES_DQUO,  ES_CCED,  ES_NTIL,  ES_ACUT,
                         _______,    _______,  KC_RCTL,  KC_LALT,  _______,     _______,   KC_DELETE,  _______,  _______,  _______
 ),
 
@@ -143,27 +179,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
     QK_BOOT, RGB_M_P , RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN,                        RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, XXXXXXX, XXXXXXX,
-    XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(_GAME),
-    XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, RGB_MOD,                           RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(_MINECRAFT),
-    TO(_QWERTY), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+    XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(_DVORAK),
+    XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, RGB_MOD,                           RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(_DVORAK),
+    TO(_QWERTY), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, TO(_DVORAK),     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-[_GAME] = LAYOUT(
-    KC_ESC,         KC_1,           KC_2,           KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
-    KC_TAB,         KC_Q,           KC_W,           KC_E,    KC_R,    KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BACKSLASH,
-    KC_CAPS_LOCK,   KC_A,           KC_S,           KC_D,    KC_F,      KC_G,                                       KC_H, KC_J, KC_K, KC_L, KC_SCLN,   KC_QUOT,
-    KC_LSFT,        KC_Z,           KC_X,           KC_C,    KC_V,    KC_B,     KC_BTN1,                KC_BTN2,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                                    KC_LGUI,        KC_LALT, KC_LCTL, KC_SPC, KC_ENTER,        LT(_RAISE,KC_SPC), KC_ENTER, KC_RCTL, KC_RALT, C(KC_S)
-),
+// [_GAME] = LAYOUT(
+//     KC_ESC,         KC_1,           KC_2,           KC_3,    KC_4,    KC_5,                                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
+//     KC_TAB,         KC_Q,           KC_W,           KC_E,    KC_R,    KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BACKSLASH,
+//     KC_CAPS_LOCK,   KC_A,           KC_S,           KC_D,    KC_F,      KC_G,                                       KC_H, KC_J, KC_K, KC_L, KC_SCLN,   KC_QUOT,
+//     KC_LSFT,        KC_Z,           KC_X,           KC_C,    KC_V,    KC_B,     KC_BTN1,                KC_BTN2,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
+//                                     KC_LGUI,        KC_LALT, KC_LCTL, KC_SPC, KC_ENTER,        LT(_RAISE,KC_SPC), KC_ENTER, KC_RCTL, KC_RALT, C(KC_S)
+// ),
 
-[_MINECRAFT] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_ACCEL2, XXXXXXX,
-    XXXXXXX, XXXXXXX, KC_H, XXXXXXX, XXXXXXX, KC_T,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_A, KC_S, XXXXXXX, KC_F, KC_G,                           XXXXXXX, KC_F3, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    TO(_QWERTY), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_B, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
-                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-)
+// [_MINECRAFT] = LAYOUT(
+//     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_ACCEL2, XXXXXXX,
+//     XXXXXXX, XXXXXXX, KC_H, XXXXXXX, XXXXXXX, KC_T,                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+//     XXXXXXX, KC_A, KC_S, XXXXXXX, KC_F, KC_G,                           XXXXXXX, KC_F3, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+//     TO(_QWERTY), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_B, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+//                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+// )
 };
 // clang-format on
 
@@ -382,6 +418,12 @@ static void print_status_narrow(void) {
             break;
         case _NUMBERS:
             oled_write("Numb ", false);
+            break;
+        case _DVORAK:
+            oled_write("Dvork", false);
+            break;
+        case _DVORAKCMD:
+            oled_write("Dvcmd", false);
             break;
         default:
             oled_write("Undef", false);
